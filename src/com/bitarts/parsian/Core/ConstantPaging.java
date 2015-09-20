@@ -21,4 +21,5 @@ public interface ConstantPaging {
     final public static String vamResultPageNumber = "PageNumber_vams";
     //b-h
     final public static String bedehiTasviyeNashodeResultPageNumber = "pageNumber_bedehiTasviyeNashode";
+    final public static String MotalebatNamayandePageNumber = "pageNumber_MotalebatNamayande";
 }

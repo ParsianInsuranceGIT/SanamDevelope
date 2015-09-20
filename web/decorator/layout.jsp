@@ -193,8 +193,12 @@
 
                                             <div class="menu-sep"></div>
                                             <div onclick="window.location='/fin/prepareCashTurnoverReport'"><a style="cursor:pointer">گزارش عملکرد صندوق</a></div>
-                                                <div class="menu-sep"></div>
-                                                <div onclick="window.location='/fin/gozareshBedehiNamayande'"><a style="cursor:pointer">گزارش بدهي نماينده</a></div>
+                                            <div class="menu-sep"></div>
+                                            <div onclick="window.location='/fin/gozareshBedehiNamayande'"><a style="cursor:pointer">گزارش بدهي نماينده</a></div>
+
+                                            <div class="menu-sep"></div>
+                                            <div onclick="window.location='/fin/MotalebatNamayande'"><a style="cursor:pointer">گزارش مطالبات به تفكيك نماينده</a></div>
+
 
                                         </div>
                                     </div>
@@ -272,10 +276,10 @@
                         </c:forEach>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         نوع دفتر:
-                        <c:if test="${user.daftar.id!=1}">
+                        <c:if test="${user != null && user.daftar.id!=1}">
 نماينده
                         </c:if>
-                        <c:if test="${user.daftar.id==1}">
+                        <c:if test="${user == null || user.daftar.id==1}">
                                 پارسيان
                         </c:if>
                     </td>

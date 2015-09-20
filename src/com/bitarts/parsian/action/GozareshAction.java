@@ -9,6 +9,7 @@ import com.bitarts.parsian.Core.Constant;
 import com.bitarts.parsian.model.Namayande;
 import com.bitarts.parsian.model.Role;
 import com.bitarts.parsian.model.User;
+import com.bitarts.parsian.model.asnadeSodor.Motalebat;
 import com.bitarts.parsian.model.asnadeSodor.CashFlow;
 import com.bitarts.parsian.model.asnadeSodor.LogPrintDaftarche;
 import com.bitarts.parsian.model.bimename.Bimename;
@@ -1497,5 +1498,34 @@ public class GozareshAction extends BaseAction implements ServletContextAware {
 
     public void setBimenamePaginatedList(PaginatedListImpl<Bimename> bimenamePaginatedList) {
         this.bimenamePaginatedList = bimenamePaginatedList;
+    }
+
+    private PaginatedListImpl<Motalebat>  MotalebatNM ;
+    private int  Field ;
+    public String GetListMotalebatNamayande() {
+        MotalebatNM = new PaginatedListImpl<Motalebat>();
+        MotalebatNM.setPageNumber(0);
+        MotalebatNM.setObjectsPerPage(Integer.MAX_VALUE);
+        listMotalebatNamayande();
+        return SUCCESS;
+    }
+
+    public String listMotalebatNamayande(){
+
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = null;
+        if (username != null)
+        {
+            user = loginService.findUserByUsername(username);
+        }
+        else{
+            return Constant.NOSESSION;//"nosession";
+        }
+
+        int page        = PagingUtil.getPageNumberFromContext("pageNumber_MotalebatNamayande");
+        MotalebatNM     = asnadeSodorService.listMotalebatNamayande(page,user, Field);
+        System.out.println(MotalebatNM.getList().toArray().toString());
+
+        return SUCCESS;
     }
 }
