@@ -373,4 +373,5 @@ public interface IAsnadeSodorService extends IBaseService {
     public PaginatedListImpl<bedehiTasviyeNashode> listBedehiTasviyeNashodeNamayande(int page,User user,String identifier,String rcptName,String sarresidDateFrom,String sarresidDateTo,String createdDateFrom,String createdDateTo,String amount,String remainingAmount,Long search_namayandegiId,Long search_vahedesodorId,Long bazaryabSanamId,String bedehiColor, int reshte, boolean isSearch);
     public List<sooratVaziatMali_new> findbedehiNamayandeForGozaresh(Long namayandeId,User user);
     public PaginatedListImpl<Motalebat> listMotalebatNamayande (int page , User usr , int field);
+    public PaginatedListImpl<Motalebat> listMotalebatSal (int page , User usr , int field);
 }

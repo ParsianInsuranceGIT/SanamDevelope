@@ -431,6 +431,10 @@
             <result name="success">/jsp/daryaftPardakht/page_motalebatNamayande.jsp</result>
             <result name="nosession">jsp/user/page_login.jsp</result>
         </action>
+        <action name="MotalebatSal" class="com.bitarts.parsian.action.GozareshAction" method="GetListMotalebatSal">
+            <result name="success">/jsp/daryaftPardakht/page_motalebatSal.jsp</result>
+            <result name="nosession">jsp/user/page_login.jsp</result>
+        </action>
         <action name="printBedehiNamayande" class="com.bitarts.parsian.action.PrintAction" method="printBedehiNamayande">
             <param name="sourceFilePath">report/printBedehiNamayande.jrxml</param>
             <param name="destFileDIR">content/report/</param>

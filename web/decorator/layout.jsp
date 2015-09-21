@@ -199,6 +199,9 @@
                                             <div class="menu-sep"></div>
                                             <div onclick="window.location='/fin/MotalebatNamayande'"><a style="cursor:pointer">گزارش مطالبات به تفكيك نماينده</a></div>
 
+                                            <div class="menu-sep"></div>
+                                            <div onclick="window.location='/fin/MotalebatSal'"><a style="cursor:pointer">گزارش مطالبات به تفكيك سال</a></div>
+
 
                                         </div>
                                     </div>
