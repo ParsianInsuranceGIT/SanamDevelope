@@ -9,10 +9,13 @@
 <%@ include file="/jsp/taglibs.jsp" %>
 <%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jstl/fmt_rt" prefix="fmt-rt" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://displaytag.sf.net/el" prefix="display" %>
-
+<%@ page import="com.bitarts.parsian.action.GozareshAction" %>
+<%@ page import="com.bitarts.parsian.model.asnadeSodor.Motalebat" %>
+<%@ include file="/jsp/taglibs.jsp" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
 <html>

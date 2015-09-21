@@ -4946,9 +4946,11 @@ public class AsnadeSodorDAO extends BaseDAO {
         resultList.setObjectsPerPage(PagingUtil.MAX_OBJECTS_PER_PAGE);
 
         String Query = " select " +
-                "   namayande, Name, field , fieldStr " +
-                "   , sum(mablagh) as SaderShode , sum(sarresid_nashode2) as SarresidNashode, sum(Consortiumsarresid_nashode2) as Consortiumsarresid_nashode , sum(tasvieNashodeNahaii2) as TasvieNashode, sum(consortium) as consortiumNahaii ,    " +
-                "   sum(tasvieshodeNahaii2) as TasvieShode from( " +
+                "   nvl(namayande, ''), nvl(Name , ''), nvl(field,0) , nvl(fieldStr ,'')" +
+                "   , sum(nvl(mablagh,0)) as SaderShode , sum(nvl(sarresid_nashode2,0)) as SarresidNashode" +
+                "   , sum(nvl(Consortiumsarresid_nashode2,0)) as Consortiumsarresid_nashode " +
+                "   , sum(nvl(tasvieNashodeNahaii2,0)) as TasvieNashode, sum(nvl(consortium,0)) as consortiumNahaii ,    " +
+                "   sum(nvl(tasvieshodeNahaii2,0)) as TasvieShode from( " +
                 "   select namayande, Name, field, mablagh, " +
                 "   case when isConsortium = 1 then 0 else sarresid_nashode end as sarresid_nashode2,   " +
                 "   case when isConsortium = 1 then sarresid_nashode else 0 end as Consortiumsarresid_nashode2 , " +
