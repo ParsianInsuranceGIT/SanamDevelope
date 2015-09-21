@@ -3149,4 +3149,7 @@ public class AsnadeSodorService implements IAsnadeSodorService
     public PaginatedListImpl<Motalebat> listMotalebatNamayande (int page , User usr , int field){
         return asnadeSodorDAO.FindMotalebatNamayande(page,usr,field);
     }
+    public PaginatedListImpl<Motalebat> listMotalebatSal (int page , User usr , int field){
+        return asnadeSodorDAO.FindMotalebatSal(page,usr,field);
+    }
 }

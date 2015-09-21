@@ -1501,6 +1501,7 @@ public class GozareshAction extends BaseAction implements ServletContextAware {
     }
 
     private PaginatedListImpl<Motalebat>  MotalebatNM ;
+    private PaginatedListImpl<Motalebat>  MotalebatSaal ;
     private int  Field ;
     public String GetListMotalebatNamayande() {
         MotalebatNM = new PaginatedListImpl<Motalebat>();
@@ -1528,4 +1529,34 @@ public class GozareshAction extends BaseAction implements ServletContextAware {
 
         return SUCCESS;
     }
+
+
+
+    public String GetListMotalebatSal() {
+        MotalebatSaal = new PaginatedListImpl<Motalebat>();
+        MotalebatSaal.setPageNumber(0);
+        MotalebatSaal.setObjectsPerPage(Integer.MAX_VALUE);
+        listMotalebatSal();
+        return SUCCESS;
+    }
+
+    public String listMotalebatSal(){
+
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = null;
+        if (username != null)
+        {
+            user = loginService.findUserByUsername(username);
+        }
+        else{
+            return Constant.NOSESSION;//"nosession";
+        }
+
+        int page        = PagingUtil.getPageNumberFromContext("pageNumber_MotalebatSal");
+        MotalebatSaal     = asnadeSodorService.listMotalebatNamayande(page,user, Field);
+        System.out.println(MotalebatSaal.getList().toArray().toString());
+
+        return SUCCESS;
+    }
 }
+

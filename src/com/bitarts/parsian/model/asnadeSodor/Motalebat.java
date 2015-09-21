@@ -8,6 +8,7 @@ package com.bitarts.parsian.model.asnadeSodor;
  * To change this template use File | Settings | File Templates.
  */
 public class Motalebat {
+    private  String createDate ;
     private  String Namayande ;
     private  String Name ;
     private  int    Reshte ;
@@ -19,7 +20,9 @@ public class Motalebat {
     private  Long   MablaghconsortiumNahaii ;
     private  Long   MablaghTasvieShode ;
 
-    public Motalebat(String namayande, String name, int reshte, String reshteStr, Long mablaghSaderShode, Long mablaghSarresidNaShode, Long mablaghConsortiumsarresid_nashode, Long mablaghTasvieNashode, Long mablaghconsortiumNahaii ,Long mablaghTasvieShode) {
+    public Motalebat(String createDate, String namayande, String name, int reshte, String reshteStr, Long mablaghSaderShode, Long mablaghSarresidNaShode,
+                     Long mablaghConsortiumsarresid_nashode, Long mablaghTasvieNashode, Long mablaghconsortiumNahaii, Long mablaghTasvieShode) {
+        this.createDate = createDate;
         Namayande = namayande;
         Name = name;
         Reshte = reshte;
@@ -27,12 +30,17 @@ public class Motalebat {
         MablaghSaderShode = mablaghSaderShode;
         MablaghSarresidNaShode = mablaghSarresidNaShode;
         MablaghConsortiumsarresid_nashode = mablaghConsortiumsarresid_nashode;
-        MablaghconsortiumNahaii = mablaghconsortiumNahaii;
         MablaghTasvieNashode = mablaghTasvieNashode;
+        MablaghconsortiumNahaii = mablaghconsortiumNahaii;
         MablaghTasvieShode = mablaghTasvieShode;
     }
 
-    public Motalebat() {
+    public String getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(String createDate) {
+        this.createDate = createDate;
     }
 
     public String getNamayande() {
@@ -91,20 +99,20 @@ public class Motalebat {
         MablaghConsortiumsarresid_nashode = mablaghConsortiumsarresid_nashode;
     }
 
-    public Long getMablaghconsortiumNahaii() {
-        return MablaghconsortiumNahaii;
-    }
-
-    public void setMablaghconsortiumNahaii(Long mablaghconsortiumNahaii) {
-        MablaghconsortiumNahaii = mablaghconsortiumNahaii;
-    }
-
     public Long getMablaghTasvieNashode() {
         return MablaghTasvieNashode;
     }
 
     public void setMablaghTasvieNashode(Long mablaghTasvieNashode) {
         MablaghTasvieNashode = mablaghTasvieNashode;
+    }
+
+    public Long getMablaghconsortiumNahaii() {
+        return MablaghconsortiumNahaii;
+    }
+
+    public void setMablaghconsortiumNahaii(Long mablaghconsortiumNahaii) {
+        MablaghconsortiumNahaii = mablaghconsortiumNahaii;
     }
 
     public Long getMablaghTasvieShode() {
