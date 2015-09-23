@@ -5105,7 +5105,7 @@ public class AsnadeSodorDAO extends BaseDAO {
         }
 
         Query += "   group by    " +
-                "   T2.namayande, T2.Name, T2.field , dict.fieldStr " +
+                "   T2.createDate, T2.field , dict.fieldStr " +
                 "   order by 1 ASC   ";
 
         Query Str=getHibernateTemplate().getSessionFactory().getCurrentSession().createSQLQuery(Query);
