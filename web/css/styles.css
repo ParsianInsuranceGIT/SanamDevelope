@@ -292,7 +292,10 @@ span.excel{
     background-image: url("/img/ico_file_excel.png");
     background-repeat: no-repeat;
 }
-
+span.xlsx{
+    background-image: url("/img/ico_file_excel.png");
+    background-repeat: no-repeat;
+}
 span.csv {
     background-image: url("/img/ico_file_csv.png");
     margin-left: 10px;

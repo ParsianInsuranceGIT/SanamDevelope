@@ -5011,16 +5011,16 @@ public class AsnadeSodorDAO extends BaseDAO {
         List<Motalebat> listMotalebt = new ArrayList<Motalebat>();
 
         for(int i=0; i<tempList.size(); i++){
-            String Namayande                            = (String)tempList.get(i)[1];
-            String Name                                 = (String)tempList.get(i)[2];
-            BigDecimal  Reshte                          = (BigDecimal)tempList.get(i)[3];
-            String ReshteStr                            = (String)tempList.get(i)[4];
-            BigDecimal MablaghSaderNaShode              = (BigDecimal)tempList.get(i)[5];
-            BigDecimal MablaghSarresidShode             = (BigDecimal)tempList.get(i)[6];
-            BigDecimal MablaghConsortiumsarresid_nashode= (BigDecimal)tempList.get(i)[7];
-            BigDecimal MablaghTasvieNashode             = (BigDecimal)tempList.get(i)[8];
-            BigDecimal MablaghconsortiumNahaii          = (BigDecimal)tempList.get(i)[9];
-            BigDecimal MablaghTasvieShode               = (BigDecimal)tempList.get(i)[10];
+            String Namayande                            = (String)tempList.get(i)[0];
+            String Name                                 = (String)tempList.get(i)[1];
+            BigDecimal  Reshte                          = (BigDecimal)tempList.get(i)[2];
+            String ReshteStr                            = (String)tempList.get(i)[3];
+            BigDecimal MablaghSaderNaShode              = (BigDecimal)tempList.get(i)[4];
+            BigDecimal MablaghSarresidShode             = (BigDecimal)tempList.get(i)[5];
+            BigDecimal MablaghConsortiumsarresid_nashode= (BigDecimal)tempList.get(i)[6];
+            BigDecimal MablaghTasvieNashode             = (BigDecimal)tempList.get(i)[7];
+            BigDecimal MablaghconsortiumNahaii          = (BigDecimal)tempList.get(i)[8];
+            BigDecimal MablaghTasvieShode               = (BigDecimal)tempList.get(i)[9];
 
             Motalebat MotNm = new Motalebat("",Namayande, Name,Reshte.intValue() ,ReshteStr, MablaghSaderNaShode.longValue(),
                     MablaghSarresidShode.longValue(), MablaghConsortiumsarresid_nashode.longValue(), MablaghTasvieNashode.longValue(), MablaghconsortiumNahaii.longValue(), MablaghTasvieShode.longValue());

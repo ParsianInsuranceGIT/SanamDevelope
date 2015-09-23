@@ -25,7 +25,7 @@
 <display:table export="true" id="sanadListTbl" uid="row" name="sanadListPaginated"
                sort="external" htmlId="sanadListTbl"
                partialList="true"
-               size="${sanadListPaginated.fullListSize}"
+               size="sanadListPaginated.fullListSize"
                pagesize="${sanadListPaginated.objectsPerPage}"
                requestURI="" clearStatus="true" keepStatus="false"
                excludedParams="" style="width: 100%; margin: 0 auto;">

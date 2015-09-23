@@ -294,7 +294,11 @@
                     <c:set var="css" value="background:#ffffcc;"/>
                 </c:otherwise>
             </c:choose>
-                <display:column title="رديف" style="">${row_rowNum}</display:column>
+
+
+            <display:caption media="csv excel xlsx"> MYCAPTION</display:caption>
+
+            <display:column title="رديف" style="">${row_rowNum}</display:column>
                 <display:column title="شماره سند" property="shomare_sanad" style=""/>
                 <display:column title="زمان ثبت" property="zaman_sabt" style=""/>
                 <display:column title="نوع سند" property="noe_sanad_str" style=""></display:column>
@@ -328,7 +332,7 @@
                 <display:column title="شماره سند بانک " property="shomare_sanad_bank" style=""/>
                 <display:column title="شماره فيش" property="shomare_fish" style=""/>
                 <display:column title="سريال چك" property="serial_check" style=""/>
-                <display:column title="كد واحد ثبت سند" property="kode_vahed_sabt_sanad" style=""/>
+                <display:column title="كد واحد ثبت سند"  property="kode_vahed_sabt_sanad" style=""/>
                 <display:column title="نام واحد ثبت سند" property="name_vahed_sabt_sanad" style=""/>
 
 
@@ -346,7 +350,7 @@
             <%--b-h--%>
                 <%--<display:column title="نام بيمه گذار اعتبار" property="etebarCredebit.rcptName" style=""/>--%>
                 <%--<display:column title="کاربر ثبت کننده سند" property="sanad.user.fullName" style=""/>--%>
-                <display:column title="عمليات" style="">
+                <display:column title="عمليات"    media="html" style="">
                     <sec:authorize ifNotGranted="ROLE_MALI_VIEW">
 
                         <c:if test="${row.vaziat.toString() != 'DAEM'}" >
@@ -357,10 +361,10 @@
                         <input type="button" onclick="window.open('/fin/printeSanad?pishnehadReport.sanad.id=${row.sanad_id}');" id="print_btn" value="پرينت  سند" />
                     </c:if>
                 </display:column>
-                <display:column title="عمليات" style="">
+                <display:column title="عمليات"   media="html" style="">
                     <input type="button" onclick="printFish(${row.etebar_id},'${row.bank}','${row.noe_etebar_str}');" id="print_btn" value="پرينت فيش اعتبار" />
                 </display:column>
-                <display:column title="عمليات" style="">
+                <display:column title="عمليات"  media="html" style="">
                     <sec:authorize ifAllGranted="ROLE_KARBAR_MALI,ROLE_NAMAYANDE" ifNotGranted="ROLE_MALI_VIEW">
                         <c:if test="${row.vaziat == 'MOVAGHAT'}">
                             <%--<c:if test="${row.bedehiCredebit.subsystemName == 'VEHICLE' }">--%>
@@ -369,7 +373,7 @@
                         </c:if>
                     </sec:authorize>
                 </display:column>
-                <display:column title="عمليات" style="">
+                <display:column title="عمليات"  media="html" style="">
                     <sec:authorize ifAllGranted="ROLE_MALI_HAZFESANAD" ifNotGranted="ROLE_MALI_VIEW">
                         <c:if test="${row.subsystem_name == 'VEHICLE'}">
                             <input type="button" onclick="deleteSanad(${row.sanad_id});"  id="deleteSanad_btn" value="حذف سند" />
@@ -377,7 +381,8 @@
                     </sec:authorize>
                 </display:column>
 
-
+            <display:footer media="csv excel xlsx"> MYFOOTER
+            </display:footer>
         </display:table>
     </div>
 <br>

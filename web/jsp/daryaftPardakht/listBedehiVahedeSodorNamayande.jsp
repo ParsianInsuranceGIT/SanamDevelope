@@ -57,11 +57,11 @@
 <div style="overflow:auto;">
     <div style="overflow: auto;">
         <form name="pishListFormOfRKM" action="?" method="POST">
-            <display:table export="true" id="bedehiCredebitListPaginated" uid="row" name="bedehiCredebitListPaginated"
+            <display:table export="false" id="bedehiCredebitListPaginated" uid="row" name="bedehiCredebitListPaginated"
                            sort="external" htmlId="bedehiCredebitListPaginated"
                            decorator="org.displaytag.decorator.CheckboxTableDecorator"
                            partialList="true"
-                           size="${bedehiCredebitListPaginated.fullListSize}"
+                           size="bedehiCredebitListPaginated.fullListSize"
                            pagesize="${bedehiCredebitListPaginated.objectsPerPage}"
                            requestURI="?selectedTab=tabs-1&${pagingParams}" clearStatus="true" keepStatus="false"
                            excludedParams="selectedTab decorator pishnehadSearch* _chk" style="width: 100%; margin: 0 auto;">

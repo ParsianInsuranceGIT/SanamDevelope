@@ -13,6 +13,7 @@
 <%@ taglib uri="http://displaytag.sf.net/el" prefix="display" %>
 <%@ page import="com.bitarts.parsian.action.GozareshAction" %>
 <%@ page import="com.bitarts.parsian.model.asnadeSodor.Motalebat" %>
+<%@ page import="java.util.List" %>
 <%@ include file="/jsp/taglibs.jsp" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -23,7 +24,9 @@
     <title>ليست مطالبات به تفكيك نماينده</title>
 </head>
 <body>
-
+<%
+    List<Motalebat> motalebatList  = (List<Motalebat>) request.getAttribute("MotalebatNM");
+%>
 <script>
     $(function(){
         $(".jtable tr").click(function(){
@@ -68,33 +71,37 @@
 <s:actionmessage/>
 <%--<s:actionerror/>--%>
 <div id="smoothScrollaasn" style="overflow: auto;">
-    <display:table export="true" id="MotalebatNM" uid="rowSS" name="MotalebatNM"
-                   sort="external" htmlId="MotalebatNM"
+    <display:table export="true"
+                   id="MotalebatNMId"
+                   uid="rowSS"
+                   name="MotalebatNM"
+                   sort="external" htmlId="MotalebatNMId"
                    partialList="true"
-                   size="${MotalebatNM.fullListSize}"
-                   pagesize="${MotalebatNM.objectsPerPage}"
-                   requestURI="" clearStatus="true" keepStatus="false"
-                   excludedParams="" style="width: 100%; margin: 0 auto;">
-        <c:choose>
-            <c:when test="${sessionScope.daftar_id==1}">
-                <c:set var="css" value=""/>
-            </c:when>
+                   size="100"
+                   pagesize="30"
+                   requestURI="MotalebatNamayande"
+                   clearStatus="true" keepStatus="false"
+                    style="width: 100%; margin: 0 auto;">
+        <%--<c:choose>--%>
+            <%--<c:when test="${sessionScope.daftar_id==1}">--%>
+                <%--<c:set var="css" value=""/>--%>
+            <%--</c:when>--%>
 
-            <c:otherwise>
-                <c:set var="css" value="background:#ffffcc;"/>
-            </c:otherwise>
-        </c:choose>
-        <display:column title="رديف" style="">${row_rowNum}</display:column>
-        <display:column title="نماينده" property="Namayande" style=""/>
-        <display:column title="نام نماينده" property="Name" style=""/>
-        <display:column title="رشته" property="ReshteStr" style=""></display:column>
-        <display:column title="مبلغ صادر شده"  property="MablaghSaderShode" style=""></display:column>
-        <display:column title="مبلغ سررسيد نشده"  property="MablaghSarresidNaShode" style=""/>
-        <display:column title="مبلغ كنسرسيوم نشده" property="MablaghConsortiumsarresid_nashode"  style=""></display:column>
-        <display:column title="مبلغ تسويه نشده" property="MablaghTasvieNashode" style=""/>
+            <%--<c:otherwise>--%>
+                <%--<c:set var="css" value="background:#ffffcc;"/>--%>
+            <%--</c:otherwise>--%>
+        <%--</c:choose>--%>
+        <display:column title="رديف" style="">${rowSS_rowNum}</display:column>
+        <%--<display:column title="نماينده" property="Namayande" style=""/>--%>
+        <%--<display:column title="نام نماينده" property="Name" style=""/>--%>
+        <%--<display:column title="رشته" property="ReshteStr" style=""></display:column>--%>
+        <%--<display:column title="مبلغ صادر شده"  property="MablaghSaderShode" style=""></display:column>--%>
+        <%--<display:column title="مبلغ سررسيد نشده"  property="MablaghSarresidNaShode" style=""/>--%>
+        <%--<display:column title="مبلغ كنسرسيوم نشده" property="MablaghConsortiumsarresid_nashode"  style=""></display:column>--%>
+        <%--<display:column title="مبلغ تسويه نشده" property="MablaghTasvieNashode" style=""/>--%>
 
-        <display:column title="مبلغ كنسرسيوم نهايي"  style="" property="MablaghconsortiumNahaii"></display:column>
-        <display:column title="مبلغ تسويه شده"  style="" property="MablaghTasvieShode"></display:column>
+        <%--<display:column title="مبلغ كنسرسيوم نهايي"  style="" property="MablaghconsortiumNahaii"></display:column>--%>
+        <%--<display:column title="مبلغ تسويه شده"  style="" property="MablaghTasvieShode"></display:column>--%>
 
 
     </display:table>
