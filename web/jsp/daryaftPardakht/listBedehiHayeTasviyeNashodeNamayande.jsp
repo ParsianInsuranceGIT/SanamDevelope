@@ -73,7 +73,7 @@
                    <%--zard--%>
                 <c:when test="${row5.finalsarresid.compareTo(towDaysLaterDate)<=0 &&
                                 row5.finalsarresid.compareTo(todayDate)>0 &&
-                                row5.tasvieNashode!=0} ">
+                                row5.tasvieNashode!=0}">
                     <c:set var="css" value="background:#ffff66;"/>
                 </c:when>
                     <%--narenji--%>

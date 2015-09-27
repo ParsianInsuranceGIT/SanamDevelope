@@ -76,6 +76,7 @@ public class SabteSanadAction extends BaseAction implements ServletContextAware 
     private String shomareSanadBank;
     private String shomareCheck;
     private String shomareFish;
+    private String SystemName;
     private Integer pageNumber;
     private ILoginService loginService;
     private Integer loadedIdEtebarat;
@@ -538,7 +539,7 @@ public class SabteSanadAction extends BaseAction implements ServletContextAware 
             khateSanadListPaginated.setObjectsPerPage(Integer.MAX_VALUE);
             khateSanadListPaginated = asnadeSodorService.findAllKhateSanads(user,pageNumber.intValue(),searchShode ,shomareSanad,noeSanad,vaziat,createdDateAz,createdDateTa,amountSanad, bedehiType,etebarType,
                                                                             shomareMoshtariEtebar,shenaseEtebar,shomareMoshtariBedehi,shenaseBedehi,amountEtebar,
-                                                                            amountBedehi,shoBimenameBedehi,shoBimenameEtebar,shomareSanadBank,namayandeId,subSystemName,shomareCheck, bazaryabSanamId, shomareFish);
+                                                                            amountBedehi,shoBimenameBedehi,shoBimenameEtebar,shomareSanadBank,namayandeId,subSystemName,shomareCheck, bazaryabSanamId, shomareFish, SystemName);
         }
         else
         {
@@ -561,7 +562,7 @@ public class SabteSanadAction extends BaseAction implements ServletContextAware 
             khateSanadListPaginated.setObjectsPerPage(Constant.MAX_OBJECTS_PER_PAGE);
             khateSanadListPaginated = asnadeSodorService.findAllKhateSanads(user,pageNumber.intValue(),searchShode, shomareSanad,noeSanad,vaziat,createdDateAz,createdDateTa,amountSanad, bedehiType,etebarType,
                                                                             shomareMoshtariEtebar,shenaseEtebar,shomareMoshtariBedehi,shenaseBedehi,amountEtebar,
-                                                                            amountBedehi,shoBimenameBedehi,shoBimenameEtebar,shomareSanadBank,namayandeId,subSystemName,shomareCheck, bazaryabSanamId, shomareFish);
+                                                                            amountBedehi,shoBimenameBedehi,shoBimenameEtebar,shomareSanadBank,namayandeId,subSystemName,shomareCheck, bazaryabSanamId, shomareFish, SystemName);
         }
     }
 
@@ -853,5 +854,13 @@ public class SabteSanadAction extends BaseAction implements ServletContextAware 
 
     public void setShomareFish(String shomareFish) {
         this.shomareFish = shomareFish;
+    }
+
+    public String getSystemName() {
+        return SystemName;
+    }
+
+    public void setSystemName(String systemName) {
+        SystemName = systemName;
     }
 }

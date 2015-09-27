@@ -173,12 +173,10 @@ public class AsnadeSodorDAO extends BaseDAO {
         return (List<CredebitBimenameVM>) query.list();
     }
 
-    //-------
     public PaginatedListImpl<ViewKhateSanad> findAllKhateSanads(int page,String searchShode, String shomareSanad, Sanad.NoeSanad noeSanad, Sanad.Vaziat vaziat, String createdDateAz,
                                                             String createdDateTa, String amountSanad, Credebit.CredebitType bedehiType, Credebit.CredebitType etebarType,
                                                             String shomareMoshtariEtebar, String shenaseEtebar, String shomareMoshtariBedehi, String shenaseBedehi, String amountEtebar,
-                                                            String amountBedehi, String shoBimenameBedehi, String shoBimenameEtebar, String shomareSanadBank, Long namayandeId, User user,
-                                                            int subSystemName, String shomareCheck, Long bazaryabSanamId, String shomareFish) {
+                                                            String amountBedehi, String shoBimenameBedehi, String shoBimenameEtebar, String shomareSanadBank, Long namayandeId, User user, int subSystemName, String shomareCheck, Long bazaryabSanamId, String shomareFish, String SystemName) {
         PaginatedListImpl<ViewKhateSanad> resultList=new PaginatedListImpl<ViewKhateSanad>();
        // int page = 1 ;
         resultList.setPageNumber(page); //(page)
@@ -189,7 +187,7 @@ public class AsnadeSodorDAO extends BaseDAO {
                 "  sanad.CREATED_DATE AS ZamanSabt ," +
                 "  sanad.NOE_SANAD ," +
                 "  sanad.VAZIAT ," +
-                "nvl(kh.AMOuNT, 0)                     AS MablaghKhateSanad," +
+                "  nvl(kh.AMOuNT, 0)                     AS MablaghKhateSanad," +
                 "  nvl(bedehi.SUBSYSTEM_IDENTIFIER,'')   AS Bimename," +
                 "  nvl(bedehi.RCPT_NAME,'')              AS NameBimeGozar," +
                 "  nvl(etebar.SHENASE_CREDEBIT,'')       AS ShenasePardakhtEtebar," +
@@ -222,8 +220,8 @@ public class AsnadeSodorDAO extends BaseDAO {
                 "  nvl(nm.KODENAMAYANDEKARGOZAR , '')    AS KodeVahedeSabteSanad," +
                 "  nvl(nm.NAME ,'')                      AS NameVahedeSabteSanad,"+
                 "  bedehi.daftar_ID , " +
-                "  dfnVaziat.DFNCOmment                  as VaziatStr , " +
-                "  dfnNoeSanad.DFNCOmment                as NoeSanadStr ,  " +
+                "  dfnVaziat.DFNCOmment as VaziatStr , " +
+                "  dfnNoeSanad.DFNCOmment as NoeSanadStr ,  " +
                 "  etebar.ID                             as etebarId, " +
                 "  bedehi.ID                             as bedehiId, " +
                 "  bedehi.Subsystem_Name , " +
@@ -265,8 +263,8 @@ public class AsnadeSodorDAO extends BaseDAO {
         }
 
         if(searchShode == null){// && searchShode.compareTo("yes") == 0){
-
-            Query += " AND 1=2 " ;
+            String today = DateUtil.getCurrentDate();
+            Query += " AND sanad.Created_Date = '"+ today +"'" ;
         }
 
         Integer daftar_id=user.getDaftar().getId();
@@ -375,8 +373,17 @@ public class AsnadeSodorDAO extends BaseDAO {
         }
 
         if ( subSystemName > 0   ) {
+            if(subSystemName == 3)
+                Query += " AND  ( bedehi.field = 3 or bedehi.field = 4 )";
+            else
             Query += " AND  bedehi.field = "+ subSystemName;
         }
+
+        if (SystemName != null && !SystemName.isEmpty()) //system
+        {
+            Query += " AND bedehi.SUBSYSTEM_Name = '" + SystemName+"'"  ;
+        }
+
 
         Query Str=getHibernateTemplate().getSessionFactory().getCurrentSession().createSQLQuery(Query);
        // System.out.println("bedehi tasviye nashode query saba:"+Query);
@@ -504,80 +511,6 @@ public class AsnadeSodorDAO extends BaseDAO {
                 ).setString("from", fromDate).setString("to", toDate).setParameterList("etebarType", etebarList).setParameterList("bedehiType", bedehiList);
         return query.list();
     }
-
-
-//    public PaginatedListImpl<KhateSanad> findAllKhateSanads(String shomareSanad, Sanad.NoeSanad noeSanad, Sanad.Vaziat vaziat, String createdDateAz, String createdDateTa,
-//                                                            String amountSanad, Credebit.CredebitType bedehiType, Credebit.CredebitType etebarType, String shomareMoshtariEtebar,
-//                                                            String shenaseEtebar, String shomareMoshtariBedehi, String shenaseBedehi, String amountEtebar, String amountBedehi,
-//                                                            String shoBimenameBedehi, String shoBimenameEtebar) {
-//        Criteria criteria = getHibernateTemplate().getSessionFactory().getCurrentSession().createCriteria(KhateSanad.class, "kh")
-//                .createCriteria("kh.sanad", "s")
-//                .createCriteria("kh.bedehiCredebit", "bc")
-//                .createCriteria("kh.etebarCredebit", "ec");
-//
-//        if (shomareSanad != null && !shomareSanad.isEmpty()) {
-//            criteria.add(Restrictions.like("s.shomare", shomareSanad, MatchMode.ANYWHERE));
-//        }
-//
-//        if (noeSanad != null) {
-//            criteria.add(Restrictions.eq("s.noeSanad", noeSanad));
-//        }
-//
-//        if (vaziat != null) {
-//            criteria.add(Restrictions.eq("s.vaziat", vaziat));
-//        }
-//
-//        if (createdDateAz != null && !createdDateAz.isEmpty()) {
-//            criteria.add(Restrictions.ge("s.createdDate", createdDateAz));
-//        }
-//
-//        if (createdDateTa != null && !createdDateTa.isEmpty()) {
-//            criteria.add(Restrictions.le("s.createdDate", createdDateTa));
-//        }
-//
-//        if (amountSanad != null && !amountSanad.isEmpty()) {
-//            criteria.add(Restrictions.eq("s.amount_long", Long.parseLong(amountSanad.replaceAll(",", ""))));
-//        }
-//
-//        if (etebarType != null) {
-//            criteria.add(Restrictions.eq("ec.credebitType", etebarType));
-//        }
-//
-//        if (amountEtebar != null && !amountEtebar.isEmpty()) {
-//            criteria.add(Restrictions.eq("ec.remainingAmount_long", Long.parseLong(amountEtebar.replaceAll(",", ""))));
-//        }
-//
-//        if (shenaseEtebar != null && !shenaseEtebar.isEmpty()) {
-//            criteria.add(Restrictions.like("ec.shenaseCredebit", shenaseEtebar, MatchMode.ANYWHERE));
-//        }
-//
-//        if (shomareMoshtariEtebar != null && !shomareMoshtariEtebar.isEmpty()) {
-//            criteria.add(Restrictions.like("ec.shomareMoshtari", shomareMoshtariEtebar, MatchMode.ANYWHERE));
-//        }
-//
-//        if (bedehiType != null) {
-//            criteria.add(Restrictions.eq("bc.credebitType", bedehiType));
-//        }
-//
-//        if (amountBedehi != null && !amountBedehi.isEmpty()) {
-//            criteria.add(Restrictions.eq("bc.remainingAmount_long", Long.parseLong(amountBedehi.replaceAll(",", ""))));
-//        }
-//
-//        if (shenaseBedehi != null && !shenaseBedehi.isEmpty()) {
-//            criteria.add(Restrictions.like("bc.shenaseCredebit", shenaseBedehi, MatchMode.ANYWHERE));
-//        }
-//
-//        if (shomareMoshtariBedehi != null && !shomareMoshtariBedehi.isEmpty()) {
-//            criteria.add(Restrictions.like("bc.shomareMoshtari", shomareMoshtariBedehi, MatchMode.ANYWHERE));
-//        }
-//
-//        if (shoBimenameBedehi != null && !shoBimenameBedehi.isEmpty()) {
-//            criteria.add(Restrictions.like("bc.identifier", shoBimenameBedehi, MatchMode.ANYWHERE));
-//        }
-//
-//        criteria.addOrder(Order.desc("s.shomare"));
-//        return PagingUtil.getPaginatedList(criteria);
-//    }
 
     public PaginatedListImpl<KhateSanad> findAllKhateSanadsBySanadIdPaginated(Integer sanadId) {
         Criteria criteria = getHibernateTemplate().getSessionFactory().getCurrentSession().createCriteria(KhateSanad.class)
@@ -4372,7 +4305,6 @@ public class AsnadeSodorDAO extends BaseDAO {
         return null;
     }
 
-    //b-h
     public List<vaziateBedehiVaEtebar> estelamVaziateBedehiVaEtebar(String  uniqueCode,String subsystemName){
 //        Criteria criteria = getHibernateTemplate().getSessionFactory().getCurrentSession()
 //                .createCriteria(Credebit.class, "c").createCriteria("c.") ;
@@ -4389,7 +4321,6 @@ public class AsnadeSodorDAO extends BaseDAO {
         return (List<vaziateBedehiVaEtebar>)query.list();
     }
 
-    //b-h
     public List<sooratVaziatMali_new> findBedehiByShomareBimeName(String shomarebimename,User user){
         String hql="select new com.bitarts.parsian.viewModel.sooratVaziatMali_new(kh,s,etebar,bedehi) "+
                 "        from  Credebit bedehi " +
@@ -4404,7 +4335,6 @@ public class AsnadeSodorDAO extends BaseDAO {
 
     }
 
-    //b-h
     public Credebit findAllCredebitsByCodeMoshtari(String codemoshtari,User user){
         Criteria criteria=getHibernateTemplate().getSessionFactory().getCurrentSession().createCriteria(Credebit.class);
         criteria.add(Restrictions.eq("shomareMoshtari", codemoshtari));
@@ -4424,7 +4354,7 @@ public class AsnadeSodorDAO extends BaseDAO {
         }
         return null;
     }
-    //b-h
+
     public PaginatedListImpl<Credebit>  findOnlyDaftarParsianCredebits(User user,PaginatedListImpl<Credebit> paginatedList,String identifier,String rcptName,String sarresidDateFrom,String sarresidDateTo,String createdDateFrom,String createdDateTo,Long search_namayandegiId,Long search_vahedesodorId,Long bazaryabSanamId){
 //        PaginatedListImpl<Credebit> paginatedList = new PaginatedListImpl<Credebit>();
         //paginatedList.setObjectsPerPage(PagingUtil.MAX_OBJECTS_PER_PAGE);
@@ -4591,7 +4521,7 @@ public class AsnadeSodorDAO extends BaseDAO {
 
         return paginatedList;
     }
-    //b-h
+
     public Daftar findDaftarIdByName(Long namayandeId){
 
         Criteria criteria=getHibernateTemplate().getSessionFactory().getCurrentSession().createCriteria(Daftar.class,"d");
@@ -4604,7 +4534,7 @@ public class AsnadeSodorDAO extends BaseDAO {
             return null;
 
     }
-    //b-h
+
     public Credebit enteghalBedehiBeDaftarNamayande(Credebit Parsianbedehi,Daftar daftar,Integer noeEnteghal){
         Credebit namayandeBedehi=new Credebit(Parsianbedehi);
         namayandeBedehi.setCreatedDate(DateUtil.getCurrentDate());
@@ -4618,17 +4548,17 @@ public class AsnadeSodorDAO extends BaseDAO {
         super.save(Parsianbedehi);
         return  namayandeBedehi;
     }
-    //b-h
+
     public Daftar findDaftarById(Integer id) {
         return (Daftar) super.findById(Daftar.class, id);
     }
-    //b-h
+
     public Daftar findDaftarByCodeNamayande(Long namayandeId){
         Criteria criteria=getHibernateTemplate().getSessionFactory().getCurrentSession().createCriteria(Daftar.class,"d");
         criteria.add(Restrictions.eq("d.namayande.id",namayandeId));
         return (Daftar)criteria.list().get(0);
     }
-    //b-h
+
     public int tedadDaftareNamayande(Long namayandeID){
         Criteria criteria=getHibernateTemplate().getSessionFactory().getCurrentSession().createCriteria(Namayande.class);
         criteria.add(Restrictions.eq("id",namayandeID));
@@ -4641,16 +4571,25 @@ public class AsnadeSodorDAO extends BaseDAO {
         resultList.setPageNumber(page);
         resultList.setObjectsPerPage(PagingUtil.MAX_OBJECTS_PER_PAGE);
 
-        String query = "select nvl(subsystem_identifier , '') as bimenameID, nvl( cre.rcpt_name , '') as bimeGozarID, nvl(namayande.kodenamayandekargozar ,0) as namayandeID, " +
-                    "      nvl( namayande.name , '') as namayandeName, nvl(vsodoor.kodenamayandekargozar , 0) as vsodoorID,nvl(vsodoor.name , '') as vsodoorName, " +
-                    "      nvl (cre.sarresid_date , '') as sarresid_date, nvl(cre.created_date , '') as created_date, nvl(cre.amount_long , 0) as mablaghKol" +
-                    "       , nvl(cre.remaining_amount_long , 0 ) as sanadNakhorde, nvl(cre.mablaghtasvienashode , 0 )as tasvieNashode, " +
-                    "      nvl(cretype.farsiname , '') as CreType, nvl(cre.bazaryab_sanam_id , 0) as bazaryab_sanam_id , nvl(cre.mohlat_sarresid, 0) as mohlatsarresid" +
-                    " from (select * from tbl_credebit where mablaghtasvienashode > 0)cre inner join " +
-                    " (select * from tbl_credebittype where bedorbes = 1 )cretype on cre.credebit_type = cretype.latinname" +
-                    " inner join tbl_namayande namayande on cre.namayande_id = namayande.id" +
-                    " inner join tbl_namayande vsodoor on cre.vahedesodor_id = vsodoor.id" +
-                    " where (1=1)  ";
+        String query = "select subsystem_identifier as bimenameID, " +
+                             " nvl(cre.rcpt_name,'') as bimeGozarID, " +
+                             " namayande.kodenamayandekargozar as namayandeID, " +
+                             " namayande.name as namayandeName, " +
+                             " vsodoor.kodenamayandekargozar as vsodoorID," +
+                             " vsodoor.name as vsodoorName, " +
+                             " cre.sarresid_date as sarresid_date, " +
+                             " cre.created_date as created_date, " +
+                             " nvl(cre.amount_long,0) as mablaghKol, " +
+                             " nvl(cre.remaining_amount_long,0) as sanadNakhorde, " +
+                             " nvl(cre.mablaghtasvienashode, 0) as tasvieNashode, " +
+                             " cretype.farsiname as CreType, " +
+                             " cre.bazaryab_sanam_id as bazaryab_sanam_id, " +
+                             " nvl(cre.mohlat_sarresid, 0) as mohlatsarresid" +
+                             " from (select * from tbl_credebit where mablaghtasvienashode > 0)cre inner join " +
+                             " (select * from tbl_credebittype where bedorbes = 1 )cretype on cre.credebit_type = cretype.latinname" +
+                             " inner join tbl_namayande namayande on cre.أnamayande_id = namayande.id" +
+                             " inner join tbl_namayande vsodoor on cre.vahedesodor_id = vsodoor.id" +
+                             " where (1=1)  ";
         if(user.getNamayandegi()!=null){
              query += "AND namayande.kodenamayandekargozar = " + user.getNamayandegi().getKodeNamayandeKargozar();
         }
@@ -4728,6 +4667,9 @@ public class AsnadeSodorDAO extends BaseDAO {
         if(!isSearch){
             query += " AND (1=2)";
         }
+		if (user.getNamayandegi() != null ) {
+            query += " AND  namayande.KODENAMAYANDEKARGOZAR = "+user.getNamayandegi().getKodeNamayandeKargozar();
+        }
         Query Str=getHibernateTemplate().getSessionFactory().getCurrentSession().createSQLQuery(query);
         System.out.println("bedehi tasviye nashode query ali:"+query);
         List<Object[]> tempList =Str.list();
@@ -4787,120 +4729,7 @@ public class AsnadeSodorDAO extends BaseDAO {
 
         return  resultList;
     }
-/*
-    public PaginatedListImpl<bedehiTasviyeNashode> findbedehiTasviyeNashodeNamayande(int page,User user,String identifier,String rcptName,String sarresidDateFrom,String sarresidDateTo,String createdDateFrom,String createdDateTo,String amount,String remainingAmount,Long search_namayandegiId,Long search_vahedesodorId,Long bazaryabSanamId,String bedehiColor){
-        PaginatedListImpl<bedehiTasviyeNashode> resultList=new PaginatedListImpl<bedehiTasviyeNashode>();
-        resultList.setPageNumber(page);
-        resultList.setObjectsPerPage(PagingUtil.MAX_OBJECTS_PER_PAGE);
-        List<Credebit.CredebitType> types=new ArrayList<Credebit.CredebitType>();
-        for(Credebit.CredebitType type:Credebit.bedehiTypes) {
-            if(!type.equals(Credebit.CredebitType.GHEST) && !type.equals(Credebit.CredebitType.GHEST_VAM))
-            types.add(type);
-        }
-      Credebit.CredebitType[]  typesArray =types.toArray(new Credebit.CredebitType[types.size()]) ;
 
-        String hql="select new com.bitarts.parsian.viewModel.bedehiTasviyeNashode(bedehi,sum(cast(replace(kh.amount , ',', '') as long))) from  Credebit  bedehi  " +
-                " left join  bedehi.khateSanadsBedehi kh left join kh.etebarCredebit etebar" +
-                " left join kh.sanad where bedehi.credebitType in (:types)  and bedehi.daftar.id="+user.getDaftar().getId()+" and etebar.vosoulDate is null" ;
-//        String hql="select new com.bitarts.parsian.viewModel.bedehiTasviyeNashode(bedehi,sum(cast(replace(kh.amount , ',', '') as long))) from   Credebit  bedehi "+
-//                " left join  bedehi.khateSanadsBedehi kh with bedehi.credebitType in (:types)   left join kh.etebarCredebit etebar with etebar.vosoulDate is null" +
-//                " left join kh.sanad where bedehi.daftar.id="+user.getDaftar().getId() ;
-        if(user.getNamayandegi() != null)
-            hql+= " and bedehi.vahedeSodor.id="+user.getNamayandegi().getId();
-        String groupByClause=" group by bedehi.id,bedehi.rcptName, bedehi.namayande.id, bedehi.vahedeSodor.id, bedehi.createdDate" +
-                ", bedehi.amount_long, bedehi.remainingAmount_long, bedehi.identifier, bedehi.sarresidDate" +
-                ", bedehi.bazarYabSanam.id, bedehi.credebitType" +
-                "  order by bedehi.identifier,bedehi.sarresidDate";
-        //search
-        if(identifier != null && identifier.length() > 0)
-            hql += " AND bedehi.identifier LIKE '%" + identifier + "%'";
-
-        if (rcptName != null && rcptName.length() > 0)
-            hql += " AND bedehi.rcptName LIKE '%" + rcptName + "%'";
-
-        if (sarresidDateFrom != null && sarresidDateFrom.length() > 0)
-            hql += " AND bedehi.sarresidDate >= '" + sarresidDateFrom + "'";
-
-        if (sarresidDateTo != null && sarresidDateTo.length() > 0)
-            hql += " AND bedehi.sarresidDate <= '" + sarresidDateTo + "'";
-
-        if (createdDateFrom != null && createdDateFrom.length() > 0)
-            hql += " AND bedehi.createdDate >= '" + createdDateFrom + "'";
-
-        if (createdDateTo != null && createdDateTo.length() > 0)
-            hql += " AND bedehi.createdDate <= '" + createdDateTo + "'";
-
-        if (amount != null && amount.length() > 0)
-            hql += " AND bedehi.amount_long = " + Long.parseLong(amount.replaceAll(",", ""));
-
-        if (remainingAmount != null && remainingAmount.length() > 0)
-            hql += " AND bedehi.remainingAmount_long = " + Long.parseLong(remainingAmount.replaceAll(",", ""));
-
-        if (search_namayandegiId != null && search_namayandegiId > 0) {
-            hql += " AND bedehi.namayande.id = " + search_namayandegiId;
-        }
-        if (search_vahedesodorId != null && search_vahedesodorId > 0) {
-            hql += " AND bedehi.vahedeSodor.id = " + search_vahedesodorId;
-        }
-        if (bazaryabSanamId != null && bazaryabSanamId > 0) //bazaryabSanam
-        {
-            hql+= " AND bedehi.bazarYabSanam.id="+bazaryabSanamId;
-        }
-        if(bedehiColor !=null && bedehiColor.length()>0) {
-//            Properties prop = new Properties();
-//            try {
-//                prop.load(getClass().getClassLoader().getResourceAsStream("com/bitarts/parsian/config/appConfig.properties"));
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//            String mohlateSarResid = prop.getProperty("WebService.NamayandehAuthorized.MohlateSarresid");
-//            Integer  mohlateSarResid_int=  Integer.parseInt(mohlateSarResid);
-//            String finalSarresidDate = DateUtil.addDays(DateUtil.getCurrentDate(),(2-mohlateSarResid_int));
-            String todayDate=DateUtil.getCurrentDate();
-            String twoDaysLaterDate=DateUtil.addDays(todayDate,2);
-            if(bedehiColor.equals("YELLOW"))
-              hql+=" AND bedehi.sarresidDate>='"+todayDate+"' AND bedehi.sarresidDate<='"+twoDaysLaterDate+"'";
-            else if(bedehiColor.equals("ORANGE")) {
-                System.out.println("orange is selected!");
-                hql+=" AND bedehi.sarresidDate<'"+todayDate+"' AND bedehi.remainingAmount_long=0";
-            }else if(bedehiColor.equals("RED"))
-                hql+=" AND bedehi.sarresidDate<'"+todayDate+"' AND bedehi.remainingAmount_long != 0";
-            else
-                hql+=" AND bedehi.sarresidDate>'"+twoDaysLaterDate+"'";
-        }
-
-        Query query=getHibernateTemplate().getSessionFactory().getCurrentSession().createQuery(hql+groupByClause);
-        query.setParameterList("types",typesArray);
-        System.out.println("bedehi tasviye nashode query:"+hqlToSql(hql+groupByClause));
-        List<bedehiTasviyeNashode> listBedehi=query.list();
-//        Collections.sort(listBedehi, new Comparator<bedehiTasviyeNashode>() {
-//            public int compare(bedehiTasviyeNashode bedehiTasviyeNashode1, bedehiTasviyeNashode bedehiTasviyeNashode2) {
-//
-//                return bedehiTasviyeNashode1.getCredebit().getFinalSarresidDate().compareTo(bedehiTasviyeNashode2.getCredebit().getFinalSarresidDate());
-//            }
-//        });
-        if(!isExport()) {
-            int pagesize=((page - 1) * PagingUtil.MAX_OBJECTS_PER_PAGE) + PagingUtil.MAX_OBJECTS_PER_PAGE;
-            int listsize= listBedehi.size();
-//            resultList.setFullListSize(listsize);
-            if(listsize>=pagesize)
-                resultList.setList(listBedehi.subList(((page - 1) * PagingUtil.MAX_OBJECTS_PER_PAGE), pagesize ));
-            else
-                resultList.setList( listBedehi.subList(((page - 1) * PagingUtil.MAX_OBJECTS_PER_PAGE), listsize));
-        }
-        else{
-            resultList.setList(listBedehi);
-            resultList.setPageNumber(1);
-            resultList.setObjectsPerPage(Integer.MAX_VALUE);
-
-        }
-        resultList.setFullListSize(listBedehi.size());
-
-
-        return  resultList;
-    }
-*/
-    //b-h
     public List<sooratVaziatMali_new> findbedehiNamayandeForGozaresh(Long namayandeId,User user){
 
         List<Credebit.CredebitType> types=new ArrayList<Credebit.CredebitType>();
@@ -4924,7 +4753,6 @@ public class AsnadeSodorDAO extends BaseDAO {
         return (List<sooratVaziatMali_new>) query.list();
     }
 
-    //b-h
     public List<Long> NamayandehayeSubsetForGozareshListBedehi(Long namayandeId) {
 
 //        List<Long> namayandeIdListId = new LinkedList<Long>();
