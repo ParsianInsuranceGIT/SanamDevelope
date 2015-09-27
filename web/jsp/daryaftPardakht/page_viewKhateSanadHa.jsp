@@ -332,6 +332,7 @@
                 <display:column title="شماره سند بانک " property="shomare_sanad_bank" style=""/>
                 <display:column title="شماره فيش" property="shomare_fish" style=""/>
                 <display:column title="سريال چك" property="serial_check" style=""/>
+                <display:column title="تاريخ سررسيد چك" property="sarresid_tarikh" style=""/>
                 <display:column title="كد واحد ثبت سند"  property="kode_vahed_sabt_sanad" style=""/>
                 <display:column title="نام واحد ثبت سند" property="name_vahed_sabt_sanad" style=""/>
 

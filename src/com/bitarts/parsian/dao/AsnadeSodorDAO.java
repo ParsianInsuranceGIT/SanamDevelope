@@ -214,20 +214,22 @@ public class AsnadeSodorDAO extends BaseDAO {
                 "  nvl(etebar.NameVadeheSodor ,'')       AS NameVahedeSodorBEdehi," +
                 "  nvl(bedehi.KodeSabteBedehi ,'')       AS KodeVahedeSabterBedehi," +
                 "  nvl(etebar.NameSabt , '')             AS NameBahedeSabteBedehi," +
-                "  nvl(etebar.BANK ,'') ," +
-                "  nvl(etebar.TARIKH , '')," +
-                "  nvl(etebar.SHOMARESANADBANK , '')," +
-                "  nvl(etebar.SHOMAREFISH ,'')," +
-                "  nvl(etebar.SERIAL_NUMBER , '')," +
+                "  nvl(etebar.BANK ,'')                  AS Bank," +
+                "  nvl(etebar.TARIKH , '')               AS Tarikh," +
+                "  nvl(etebar.SHOMARESANADBANK , '')     AS SHOMARESANADBANK," +
+                "  nvl(etebar.SHOMAREFISH ,'')           AS SHOMAREFISH," +
+                "  nvl(etebar.SERIAL_NUMBER , '')        AS SERIAL_NUMBER," +
                 "  nvl(nm.KODENAMAYANDEKARGOZAR , '')    AS KodeVahedeSabteSanad," +
                 "  nvl(nm.NAME ,'')                      AS NameVahedeSabteSanad,"+
                 "  bedehi.daftar_ID , " +
-                "  dfnVaziat.DFNCOmment as VaziatStr , " +
-                "  dfnNoeSanad.DFNCOmment as NoeSanadStr ,  " +
+                "  dfnVaziat.DFNCOmment                  as VaziatStr , " +
+                "  dfnNoeSanad.DFNCOmment                as NoeSanadStr ,  " +
                 "  etebar.ID                             as etebarId, " +
                 "  bedehi.ID                             as bedehiId, " +
                 "  bedehi.Subsystem_Name , " +
-                "  sanad.ID as SanadId"+
+                "  sanad.ID as SanadId,"+
+                "  etebar.seri                           AS seriCheck, "+
+                "  etebar.Tarikh_sarresid                AS TARIKHSARRESIDCHECK "  +
                 " FROM tbl_sanad sanad " +
                 " INNER JOIN " +
                 "  (SELECT * FROM tbl_khate_sanad  ) kh ON kh.sanad_id = sanad.id " +
@@ -238,9 +240,10 @@ public class AsnadeSodorDAO extends BaseDAO {
                 "    inner join tbl_namayande v on cre.vahedesodor_id = v.id " +
                 " ) bedehi ON kh.bedehi_credebit_id = bedehi.id " +
                 " INNER JOIN ( " +
-                "  select cre.* , dfish.TARIKH , dfish.BANK ,v.KODENAMAYANDEKARGOZAR as KodeVahedeSodor , v.NAME as NameVadeheSodor " +
+                "  select cre.* , dfish.TARIKH , cre.bank_name as BANK ,v.KODENAMAYANDEKARGOZAR as KodeVahedeSodor , v.NAME as NameVadeheSodor " +
                 "      , n.KODENAMAYANDEKARGOZAR as KodeSabteEtebar  , n.NAME as NameSabt , cretype.FARSINAME " +
-                "    , SERIAL_NUMBER , SHOMAREFISH , SHOMARESANADBANK " +
+                "    , SERIAL_NUMBER , SHOMAREFISH , SHOMARESANADBANK ,seri," +
+                "    TARIKH_SARRESID" +
                 "  from tbl_credebit cre " +
                 "    inner join (select * from tbl_credebittype where bedorbes = 2)cretype on cre.credebit_type = cretype.latinname " +
                 "    inner join tbl_namayande n on cre.namayande_id = n.id " +
@@ -431,6 +434,8 @@ public class AsnadeSodorDAO extends BaseDAO {
             BigDecimal bedehi_id            = (BigDecimal)tempList.get(i)[40];
             String subsystem_name           = (String)tempList.get(i)[41];
             BigDecimal sanad_id             = (BigDecimal)tempList.get(i)[42];
+            String SeriCheck                = (String)tempList.get(i)[43];
+            String TarikhCheck              = (String)tempList.get(i)[44];
 
 
             ViewKhateSanad KhS = new ViewKhateSanad(shomare_sabt, zaman_sabt,noe_sanad ,vaziat2, mablagh_khate_sanad,
@@ -442,7 +447,7 @@ public class AsnadeSodorDAO extends BaseDAO {
                     , name_vahed_sodor_bedehi , kode_vahed_sabt_bedehi , name_vahed_sabt_bedehi ,bank
                     , tarikh_sanad_bank ,shomare_sanad_bank , shomare_fish , serial_check , kode_vahed_sabt_sanad,
                     name_vahed_sabt_sanad , vaziat_str , noe_sanad_str ,etebar_id.longValue() ,bedehi_id.longValue()
-                    ,subsystem_name , sanad_id.longValue());
+                    ,subsystem_name , sanad_id.longValue(), SeriCheck , TarikhCheck);
             listKhateSanad.add(KhS);
         }
         if(!isExport()) {
