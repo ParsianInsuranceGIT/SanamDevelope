@@ -5052,7 +5052,7 @@ public class AsnadeSodorDAO extends BaseDAO {
 
         String Query = " select " +
                 "  createDate, field , fieldStr " +
-                "   , sum(mablagh) as SaderShode , sum(sarresid_nashode2) as SarresidNashode, sum(Consortiumsarresid_nashode2) as Consortiumsarresid_nashode , sum(tasvieNashodeNahaii2) as TasvieNashode, sum(consortium) as consortiumNahaii ,    " +
+                "   , sum(mablagh) as SaderShode , sum(sarresid_nashode2) as SarresidNashode, sum(Consortiumsarresid_nashode2) as Consortiumsarresid_nashode , sum(tasvieNashodeNahaii2) as TasvieNashode, sum(consortium) as consortiumNahaii ,  " +
                 "   sum(tasvieshodeNahaii2) as TasvieShode from( " +
                 "   select namayande, Name, field, mablagh, " +
                 "   case when isConsortium = 1 then 0 else sarresid_nashode end as sarresid_nashode2,   " +

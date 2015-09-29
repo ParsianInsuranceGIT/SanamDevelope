@@ -13,12 +13,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://displaytag.sf.net/el" prefix="display" %>
 
-
-
 <html>
-<head>
-    <title>ليست مطالبات به تفكيك  سال</title>
-</head>
+<head><%@ page isELIgnored="false" %></head>
 <body>
 
 <script>
@@ -68,23 +64,22 @@
     <display:table export="true" id="MotalebatSaal" uid="rowSS" name="MotalebatSaal"
                    sort="external" htmlId="MotalebatSaal"
                    partialList="true"
-                   size="${MotalebatSaal.fullListSize}"
-                   pagesize="${MotalebatSaal.objectsPerPage}"
+                   size = "100"
+                   pagesize="30"
                    requestURI="" clearStatus="true" keepStatus="false"
                    excludedParams="" style="width: 100%; margin: 0 auto;">
         <c:choose>
             <c:when test="${sessionScope.daftar_id==1}">
                 <c:set var="css" value=""/>
             </c:when>
-
             <c:otherwise>
                 <c:set var="css" value="background:#ffffcc;"/>
             </c:otherwise>
         </c:choose>
         <display:column title="رديف" style="">${row_rowNum}</display:column>
-        <display:column title="نماينده" property="Namayande" style=""/>
-        <display:column title="نام نماينده" property="Name" style=""/>
-        <display:column title="رشته" property="ReshteStr" style=""></display:column>
+        <%--<display:column title="نماينده" property="Namayande" style=""/>--%>
+        <%--<display:column title="نام نماينده" property="Name" style=""/>--%>
+        <%--<display:column title="رشته" property="ReshteStr" style=""></display:column>--%>
         <display:column title="مبلغ صادر شده"  property="MablaghSaderShode" style=""></display:column>
         <display:column title="مبلغ سررسيد نشده"  property="MablaghSarresidNaShode" style=""/>
         <display:column title="مبلغ كنسرسيوم نشده" property="MablaghConsortiumsarresid_nashode"  style=""></display:column>
@@ -108,4 +103,7 @@
 
 
 </body>
+<head>
+    <title>ليست مطالبات به تفكيك  سال</title>
+</head>
 </html>

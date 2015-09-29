@@ -9,6 +9,7 @@ import com.bitarts.parsian.model.Role;
 import com.bitarts.parsian.model.User;
 import com.bitarts.parsian.model.asnadeSodor.Credebit;
 import com.bitarts.parsian.model.asnadeSodor.KhateSanad;
+import com.bitarts.parsian.model.asnadeSodor.Motalebat;
 import com.bitarts.parsian.model.asnadeSodor.Sanad;
 import com.bitarts.parsian.model.check.Check;
 import com.bitarts.parsian.service.IAsnadeSodorService;
@@ -853,5 +854,89 @@ public class SabteSanadAction extends BaseAction implements ServletContextAware 
 
     public void setShomareFish(String shomareFish) {
         this.shomareFish = shomareFish;
+    }
+
+    private PaginatedListImpl<Motalebat>  MotalebatNM ;
+    private PaginatedListImpl<Motalebat>  MotalebatSaal ;
+    private int  Field ;
+
+    public PaginatedListImpl<Motalebat> getMotalebatNM() {
+        return MotalebatNM;
+    }
+
+    public void setMotalebatNM(PaginatedListImpl<Motalebat> motalebatNM) {
+        MotalebatNM = motalebatNM;
+    }
+
+    public PaginatedListImpl<Motalebat> getMotalebatSaal() {
+        return MotalebatSaal;
+    }
+
+    public void setMotalebatSaal(PaginatedListImpl<Motalebat> motalebatSaal) {
+        MotalebatSaal = motalebatSaal;
+    }
+
+    public int getField() {
+        return Field;
+    }
+
+    public void setField(int field) {
+        Field = field;
+    }
+
+    public String GetListMotalebatNamayande() {
+        MotalebatNM = new PaginatedListImpl<Motalebat>();
+        MotalebatNM.setPageNumber(0);
+        MotalebatNM.setObjectsPerPage(Integer.MAX_VALUE);
+        listMotalebatNamayande();
+        return SUCCESS;
+    }
+
+    public String listMotalebatNamayande(){
+
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = null;
+        if (username != null)
+        {
+            user = loginService.findUserByUsername(username);
+        }
+        else{
+            return Constant.NOSESSION;//"nosession";
+        }
+
+        int page        = PagingUtil.getPageNumberFromContext("pageNumber_MotalebatNamayande");
+        MotalebatNM     = asnadeSodorService.listMotalebatNamayande(page,user, Field);
+        System.out.println(MotalebatNM.getList().toArray().toString());
+
+        return SUCCESS;
+    }
+
+
+
+    public String GetListMotalebatSal() {
+        MotalebatSaal = new PaginatedListImpl<Motalebat>();
+        MotalebatSaal.setPageNumber(0);
+        MotalebatSaal.setObjectsPerPage(Integer.MAX_VALUE);
+        listMotalebatSal();
+        return SUCCESS;
+    }
+
+    public String listMotalebatSal(){
+
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = null;
+        if (username != null)
+        {
+            user = loginService.findUserByUsername(username);
+        }
+        else{
+            return Constant.NOSESSION;//"nosession";
+        }
+
+        int page        = PagingUtil.getPageNumberFromContext("pageNumber_MotalebatSal");
+        MotalebatSaal     = asnadeSodorService.listMotalebatNamayande(page,user, Field);
+        System.out.println(MotalebatSaal.getList().toArray().toString());
+
+        return SUCCESS;
     }
 }

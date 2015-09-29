@@ -209,7 +209,7 @@ public class Credebit implements Serializable, Comparable {
             CredebitType.SIMAB_CREDITREINSURANCEINSTALLMENT
     };
     public static CredebitType[] credebitTypesNaMotabarSanadDasti = new CredebitType[]
-            {
+    {
             CredebitType.ACH //noe majazi
           ,CredebitType.AZ_MAHALLE_TABLIGHAT
           ,CredebitType.MOSHAREKAT

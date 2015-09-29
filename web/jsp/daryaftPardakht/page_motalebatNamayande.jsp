@@ -92,7 +92,7 @@
             <%--</c:otherwise>--%>
         <%--</c:choose>--%>
         <display:column title="رديف" style="">${rowSS_rowNum}</display:column>
-        <%--<display:column title="نماينده" property="Namayande" style=""/>--%>
+        <display:column title="نماينده" property="Namayande" style=""/>
         <%--<display:column title="نام نماينده" property="Name" style=""/>--%>
         <%--<display:column title="رشته" property="ReshteStr" style=""></display:column>--%>
         <%--<display:column title="مبلغ صادر شده"  property="MablaghSaderShode" style=""></display:column>--%>

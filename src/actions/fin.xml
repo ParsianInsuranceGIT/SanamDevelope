@@ -427,11 +427,11 @@
             <result name="success">/jsp/daryaftPardakht/page_gozareshBedehiNamayande.jsp</result>
             <result name="nosession">jsp/user/page_login.jsp</result>
         </action>
-        <action name="MotalebatNamayande" class="com.bitarts.parsian.action.GozareshAction" method="GetListMotalebatNamayande">
+        <action name="MotalebatNamayande" class="com.bitarts.parsian.action.SabteSanadAction" method="GetListMotalebatNamayande">
             <result name="success">/jsp/daryaftPardakht/page_motalebatNamayande.jsp</result>
             <result name="nosession">jsp/user/page_login.jsp</result>
         </action>
-        <action name="MotalebatSal" class="com.bitarts.parsian.action.GozareshAction" method="GetListMotalebatSal">
+        <action name="MotalebatSal" class="com.bitarts.parsian.action.SabteSanadAction" method="GetListMotalebatSal">
             <result name="success">/jsp/daryaftPardakht/page_motalebatSal.jsp</result>
             <result name="nosession">jsp/user/page_login.jsp</result>
         </action>
