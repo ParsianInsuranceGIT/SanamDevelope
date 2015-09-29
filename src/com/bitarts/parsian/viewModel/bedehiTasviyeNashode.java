@@ -44,19 +44,19 @@ public class bedehiTasviyeNashode
     }
     public bedehiTasviyeNashode(String bimenameID, String bimeGozarID, String namayandeID, String namayandeName, String vsodoorID, String vsodoorName, String sarresid, String created_date,Long mablaghKol,Long  sanadNakhorde,Long   tasvieNashode, String CreType,Long bazaryab_sanam_id, int mohlatsarresid){
 
-            this.bimenameID = bimenameID;
-            this.bimeGozarID = bimeGozarID;
-            this.namayandeID = namayandeID;
-            this.namayandeName = namayandeName;
-            this.vsodoorID   = vsodoorID;
-            this.vsodoorName   = vsodoorName;
-            this.created_date = created_date;
+            this.bimenameID     = bimenameID;
+            this.bimeGozarID    = bimeGozarID;
+            this.namayandeID    = namayandeID;
+            this.namayandeName  = namayandeName;
+            this.vsodoorID      = vsodoorID;
+            this.vsodoorName    = vsodoorName;
+            this.created_date   = created_date;
             this.mablaghKol     = mablaghKol;
             this.sanadNakhorde  = sanadNakhorde;
             this.tasvieNashode  = tasvieNashode;
             this.CreType        = CreType;
             this.bazaryab_sanam_id = bazaryab_sanam_id;
-            this.sarresid_date = sarresid;
+            this.sarresid_date  = sarresid;
             this.mohlatsarresid = mohlatsarresid;
             this.finalsarresid  = DateUtil.addDays(this.sarresid_date, this.mohlatsarresid);
     }

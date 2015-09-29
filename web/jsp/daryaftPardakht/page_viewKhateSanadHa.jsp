@@ -161,8 +161,8 @@
                                 <option  value="" >انتخاب كنيد</option>
                                 <option  value="1" style="" >آتش سوزي</option>
                                 <option  value="2" style="" >باربري</option>
-                                <option  value="3" style="" >بدنه</option>
-                                <option  value="4" style="" >ثالث</option>
+                                <option  value="3" style="" >اتومبيل</option>
+                                <%--<option  value="4" style="" >ثالث</option>--%>
                                 <option  value="5" style="" >حوادث انفرادي</option>
                                 <option  value="6" style="" >درمان</option>
                                 <option  value="7" style="" >عمر انفرادي</option>
@@ -194,7 +194,21 @@
                             <span class="noThing">&nbsp;</span>
                             <input type="text" name="shomareCheck" id="shomareCheck"/>
                         </td>
-                        <td></td>
+                        <td><label>سيستم</label></td>
+                        <td>
+                            <span class="noThing">&nbsp;</span>
+                            <select name="SystemName" id="SystemName">
+                                <option  value = "" >انتخاب كنيد</option>
+                                <option  value = "SIMAB"   style="" >سيماب</option>
+                                <option  value = "VEHICLE" style="" >سايبون</option>
+                                <option  value = "SIB"     style="" >سيب</option>
+                                <option  value = "DARMAN"  style="" >درمان خانواده</option>
+
+                            </select>
+
+                        </td>
+                      </tr>
+                      <tr>
                         <td>
                             <script type="text/javascript">
                                 function clearSeachFrom_b()
@@ -332,6 +346,7 @@
                 <display:column title="شماره سند بانک " property="shomare_sanad_bank" style=""/>
                 <display:column title="شماره فيش" property="shomare_fish" style=""/>
                 <display:column title="سريال چك" property="serial_check" style=""/>
+                <display:column title="تاريخ سررسيد چك" property="sarresid_tarikh" style=""/>
                 <display:column title="كد واحد ثبت سند"  property="kode_vahed_sabt_sanad" style=""/>
                 <display:column title="نام واحد ثبت سند" property="name_vahed_sabt_sanad" style=""/>
 

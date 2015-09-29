@@ -64,65 +64,58 @@ public class ViewKhateSanad {
     private Long bedehi_id                  =new Long(0);
     private String subsystem_name           ="";
     private Long sanad_id                   =new Long(0);
+    private String seri_check               ="";
+    private String sarresid_tarikh          ="";
 
     public ViewKhateSanad(){
 
     }
-    public ViewKhateSanad(
-            String shomare_sanad   ,String zaman_sabt   ,  Sanad.NoeSanad noe_sanad    ,   Sanad.Vaziat vaziat      ,
-            String mablagh_khate_sanad,  String bimename ,  String name_bimegozar  ,
-            String shenase_pardakht_etebar  , String shomare_moshtari_etebar  , String noe_etebar , String noe_etebar_str ,  String shenase_pardakht_bedehi ,
-            String shomare_moshtari_bedehi  ,  String noe_bedehi , String noe_bedehi_str , Long   mablagh_etebar  ,
-            Long   mablagh_bedehi  , Long   mande_etebar ,Long   mande_bedehi    ,
-            String sarresid_date_etebar   , String sarresid_date_bedehi    ,  String kode_vahed_sodor_etebar  ,
-            String name_vahed_sodor_etebar , String kode_vahed_sabt_etebar   , String name_vahed_sabt_etebar   , String kode_vahed_sodor_bedehi  ,
-            String name_vahed_sodor_bedehi  , String kode_vahed_sabt_bedehi   , String name_vahed_sabt_bedehi  ,
-            String bank , String tarikh_sanad_bank , String shomare_sanad_bank  , String shomare_fish       ,
-            String serial_check ,String kode_vahed_sabt_sanad , String name_vahed_sabt_sanad ,String vaziat_str , String noe_sanad_str
-            , Long etebar_id ,Long  bedehi_id ,String subsystem_name, Long sanad_id ){
 
-        this.shomare_sanad             = shomare_sanad;
-        this.zaman_sabt                 = zaman_sabt;
-        this.noe_sanad                  = noe_sanad;
-        this.vaziat                     = vaziat;
-        this.mablagh_khate_sanad        = mablagh_khate_sanad;
-        this.bimename                   = bimename;
-        this.name_bimegozar             = name_bimegozar;
-        this.shenase_pardakht_etebar    = shenase_pardakht_etebar;
-        this.shomare_moshtari_etebar    = shomare_moshtari_etebar;
-        this.noe_etebar                 = noe_etebar;
-        this.noe_etebar_str             = noe_etebar_str;
-        this.shenase_pardakht_bedehi    = shenase_pardakht_bedehi;
-        this.shomare_moshtari_bedehi    = shomare_moshtari_bedehi;
-        this.noe_bedehi                 = noe_bedehi;
-        this.noe_bedehi_str             = noe_bedehi_str;
-        this.mablagh_etebar             = mablagh_etebar;
-        this.mablagh_bedehi             = mablagh_bedehi;
-        this.mande_etebar               = mande_etebar;
-        this.mande_bedehi               = mande_bedehi;
-        this.sarresid_date_etebar       = sarresid_date_etebar;
-        this.sarresid_date_bedehi       = sarresid_date_bedehi;
-        this.kode_vahed_sodor_etebar    = kode_vahed_sodor_etebar;
-        this.name_vahed_sodor_etebar    = name_vahed_sodor_etebar;
-        this.kode_vahed_sabt_etebar     = kode_vahed_sabt_etebar;
-        this.name_vahed_sabt_etebar     = name_vahed_sabt_etebar;
-        this.kode_vahed_sodor_bedehi    = kode_vahed_sodor_bedehi;
-        this.name_vahed_sodor_bedehi    = name_vahed_sodor_bedehi;
-        this.kode_vahed_sabt_bedehi     = kode_vahed_sabt_bedehi;
-        this.name_vahed_sabt_bedehi     = name_vahed_sabt_bedehi;
-        this.bank                       = bank;
-        this.tarikh_sanad_bank          = tarikh_sanad_bank;
-        this.shomare_sanad_bank         = shomare_sanad_bank;
-        this.shomare_fish               = shomare_fish;
-        this.serial_check               = serial_check;
-        this.kode_vahed_sabt_sanad      = kode_vahed_sabt_sanad;
-        this.name_vahed_sabt_sanad      = name_vahed_sabt_sanad;
-        this.vaziat_str                 = vaziat_str;
-        this.noe_sanad_str              = noe_sanad_str;
-        this.bedehi_id                  = bedehi_id;
-        this.etebar_id                  = etebar_id;
-        this.subsystem_name             = subsystem_name;
-        this.sanad_id                   = sanad_id;
+    public ViewKhateSanad(String shomare_sanad, String zaman_sabt, Sanad.NoeSanad noe_sanad, Sanad.Vaziat vaziat, String mablagh_khate_sanad, String bimename, String name_bimegozar, String shenase_pardakht_etebar, String shomare_moshtari_etebar, String noe_etebar, String noe_etebar_str, String shenase_pardakht_bedehi, String shomare_moshtari_bedehi, String noe_bedehi, String noe_bedehi_str, Long mablagh_etebar, Long mablagh_bedehi, Long mande_etebar, Long mande_bedehi, String sarresid_date_etebar, String sarresid_date_bedehi, String kode_vahed_sodor_etebar, String name_vahed_sodor_etebar, String kode_vahed_sabt_etebar, String name_vahed_sabt_etebar, String kode_vahed_sodor_bedehi, String name_vahed_sodor_bedehi, String kode_vahed_sabt_bedehi, String name_vahed_sabt_bedehi, String bank, String tarikh_sanad_bank, String shomare_sanad_bank, String shomare_fish, String serial_check, String kode_vahed_sabt_sanad, String name_vahed_sabt_sanad, String vaziat_str, String noe_sanad_str, Long etebar_id, Long bedehi_id, String subsystem_name, Long sanad_id, String seri_check, String sarresid_tarikh) {
+        this.shomare_sanad = shomare_sanad;
+        this.zaman_sabt = zaman_sabt;
+        this.noe_sanad = noe_sanad;
+        this.vaziat = vaziat;
+        this.mablagh_khate_sanad = mablagh_khate_sanad;
+        this.bimename = bimename;
+        this.name_bimegozar = name_bimegozar;
+        this.shenase_pardakht_etebar = shenase_pardakht_etebar;
+        this.shomare_moshtari_etebar = shomare_moshtari_etebar;
+        this.noe_etebar = noe_etebar;
+        this.noe_etebar_str = noe_etebar_str;
+        this.shenase_pardakht_bedehi = shenase_pardakht_bedehi;
+        this.shomare_moshtari_bedehi = shomare_moshtari_bedehi;
+        this.noe_bedehi = noe_bedehi;
+        this.noe_bedehi_str = noe_bedehi_str;
+        this.mablagh_etebar = mablagh_etebar;
+        this.mablagh_bedehi = mablagh_bedehi;
+        this.mande_etebar = mande_etebar;
+        this.mande_bedehi = mande_bedehi;
+        this.sarresid_date_etebar = sarresid_date_etebar;
+        this.sarresid_date_bedehi = sarresid_date_bedehi;
+        this.kode_vahed_sodor_etebar = kode_vahed_sodor_etebar;
+        this.name_vahed_sodor_etebar = name_vahed_sodor_etebar;
+        this.kode_vahed_sabt_etebar = kode_vahed_sabt_etebar;
+        this.name_vahed_sabt_etebar = name_vahed_sabt_etebar;
+        this.kode_vahed_sodor_bedehi = kode_vahed_sodor_bedehi;
+        this.name_vahed_sodor_bedehi = name_vahed_sodor_bedehi;
+        this.kode_vahed_sabt_bedehi = kode_vahed_sabt_bedehi;
+        this.name_vahed_sabt_bedehi = name_vahed_sabt_bedehi;
+        this.bank = bank;
+        this.tarikh_sanad_bank = tarikh_sanad_bank;
+        this.shomare_sanad_bank = shomare_sanad_bank;
+        this.shomare_fish = shomare_fish;
+        this.serial_check = serial_check;
+        this.kode_vahed_sabt_sanad = kode_vahed_sabt_sanad;
+        this.name_vahed_sabt_sanad = name_vahed_sabt_sanad;
+        this.vaziat_str = vaziat_str;
+        this.noe_sanad_str = noe_sanad_str;
+        this.etebar_id = etebar_id;
+        this.bedehi_id = bedehi_id;
+        this.subsystem_name = subsystem_name;
+        this.sanad_id = sanad_id;
+        this.seri_check = seri_check;
+        this.sarresid_tarikh = sarresid_tarikh;
     }
 
     public String getShomare_sanad(){
@@ -460,5 +453,21 @@ public class ViewKhateSanad {
 
     public Long getSanad_id(){
         return this.sanad_id;
+    }
+
+    public String getSeri_check() {
+        return seri_check;
+    }
+
+    public void setSeri_check(String seri_check) {
+        this.seri_check = seri_check;
+    }
+
+    public String getSarresid_tarikh() {
+        return sarresid_tarikh;
+    }
+
+    public void setSarresid_tarikh(String sarresid_tarikh) {
+        this.sarresid_tarikh = sarresid_tarikh;
     }
 }
