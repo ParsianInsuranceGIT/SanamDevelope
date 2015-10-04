@@ -6,13 +6,14 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="com.bitarts.parsian.Core.ConstantPaging" %>
 <%@ include file="/jsp/taglibs.jsp" %>
 <%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jstl/fmt_rt" prefix="fmt-rt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://displaytag.sf.net/el" prefix="display" %>
-<%@ page import="com.bitarts.parsian.action.GozareshAction" %>
-<%@ page import="com.bitarts.parsian.model.asnadeSodor.Motalebat" %>
+<%@ page import="com.bitarts.parsian.action.CredebitAction" %>
+<%@ page import="com.bitarts.parsian.viewModel.Motalebat" %>
 <%@ page import="java.util.List" %>
 <%@ include file="/jsp/taglibs.jsp" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -24,9 +25,7 @@
     <title>ليست مطالبات به تفكيك نماينده</title>
 </head>
 <body>
-<%
-    List<Motalebat> motalebatList  = (List<Motalebat>) request.getAttribute("MotalebatNM");
-%>
+
 <script>
     $(function(){
         $(".jtable tr").click(function(){
@@ -47,7 +46,8 @@
     <td><label>رشته</label></td>
     <td>
         <span class="noThing">&nbsp;</span>
-        <select name="subSystemName" id="subSystemName"   >
+        <input type="hidden" name="searchPage" value="yes"/>
+        <select name="field" id="field"   >
             <option  value="" >انتخاب كنيد</option>
             <option  value="1" style="" >آتش سوزي</option>
             <option  value="2" style="" >باربري</option>
@@ -63,7 +63,39 @@
             <option  value="12" style="">درمان مسافرتي</option>
         </select>
     </td>
+    <td><label>نمايندگي</label></td>
+    <td>
+        <%@include file="/jsp/josteju/searchNamayandegi.jsp" %>
+        <span class="help ui-icon ui-icon-search" onclick="fillNamayandegi('search_namayandegiId5','search_namayandegiName5', '');" style="float:left;" title="جستجو"></span>
+        <input type="hidden" name="search_namayandegiId5" id="search_namayandegiId5" />
+        <input type="text" name="search_namayandegiName5" id="search_namayandegiName5"  readonly="true"/>
+    </td>
 </tr>
+    <tr>
+        <td></td>
+        <td colspan="3">
+            <script type="text/javascript">
+                function clearSeachFrom()
+                {
+                    $('#identifierBedehiTN').val('');
+                    $('#rcptNameBedehiTN').val('');
+                    $('#sarresidDateFromTN').val('');
+                    $('#sarresidDateToTN').val('');
+                    $('#createdDateFromTN').val('');
+                    $('#createdDateToTN').val('');
+                    $('#amountBedehi5').val('');
+                    $('#remainingAmountBedehi5').val('');
+                    $('#search_namayandegiName5').val('');
+                    $('#search_vahedesodorName5').val('');
+                    $('#bsName-tab5').val('');
+                    $('#bedehi_color').val('');
+                }
+            </script>
+            <input type="submit" value="جستجو" theme="simple"/>
+            <span class="noThing"></span>
+            <input type="button" value="پاک کردن فرم" onclick="clearSeachFrom()"/>
+        </td>
+    </tr>
 </table>
 </form>
 </div>
@@ -72,16 +104,18 @@
 <%--<s:actionerror/>--%>
 <div id="smoothScrollaasn" style="overflow: auto;">
     <display:table export="true"
-                   id="MotalebatNMId"
+                   id="motalebatNM"
                    uid="rowSS"
-                   name="MotalebatNM"
-                   sort="external" htmlId="MotalebatNMId"
+                   name="motalebatNM"
+                   sort="external" htmlId="motalebatNM"
                    partialList="true"
-                   size="100"
-                   pagesize="30"
-                   requestURI="MotalebatNamayande"
+                   size="motalebatNM.fullListSize"
+                   pagesize="${motalebatNM.objectsPerPage}"
+                   requestURI=""
                    clearStatus="true" keepStatus="false"
                     style="width: 100%; margin: 0 auto;">
+        <%--<display:setProperty name="pagination.pagenumber.param"><%=ConstantPaging.bedehiTasviyeNashodeResultPageNumber%></display:setProperty>--%>
+
         <%--<c:choose>--%>
             <%--<c:when test="${sessionScope.daftar_id==1}">--%>
                 <%--<c:set var="css" value=""/>--%>
@@ -92,16 +126,15 @@
             <%--</c:otherwise>--%>
         <%--</c:choose>--%>
         <display:column title="رديف" style="">${rowSS_rowNum}</display:column>
-        <display:column title="نماينده" property="Namayande" style=""/>
-        <%--<display:column title="نام نماينده" property="Name" style=""/>--%>
-        <%--<display:column title="رشته" property="ReshteStr" style=""></display:column>--%>
-        <%--<display:column title="مبلغ صادر شده"  property="MablaghSaderShode" style=""></display:column>--%>
-        <%--<display:column title="مبلغ سررسيد نشده"  property="MablaghSarresidNaShode" style=""/>--%>
-        <%--<display:column title="مبلغ كنسرسيوم نشده" property="MablaghConsortiumsarresid_nashode"  style=""></display:column>--%>
-        <%--<display:column title="مبلغ تسويه نشده" property="MablaghTasvieNashode" style=""/>--%>
-
-        <%--<display:column title="مبلغ كنسرسيوم نهايي"  style="" property="MablaghconsortiumNahaii"></display:column>--%>
-        <%--<display:column title="مبلغ تسويه شده"  style="" property="MablaghTasvieShode"></display:column>--%>
+        <display:column title="نماينده" property="namayande" style=""/>
+        <display:column title="نام نماينده" property="name" style=""/>
+        <display:column title="رشته" property="reshteStr" style=""></display:column>
+        <display:column title="مبلغ صادر شده"  property="mablaghSaderShode" style=""></display:column>
+        <display:column title="مبلغ سررسيد نشده"  property="mablaghSarresidNaShode" style=""/>
+        <display:column title="مبلغ كنسرسيوم نشده" property="mablaghConsortiumsarresid_nashode"  style=""></display:column>
+        <display:column title="مبلغ تسويه نشده" property="mablaghTasvieNashode" style=""/>
+        <display:column title="مبلغ كنسرسيوم نهايي"  style="" property="mablaghconsortiumNahaii"></display:column>
+        <display:column title="مبلغ تسويه شده"  style="" property="mablaghTasvieShode"></display:column>
 
 
     </display:table>

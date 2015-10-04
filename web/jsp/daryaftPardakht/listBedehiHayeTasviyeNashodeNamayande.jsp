@@ -65,7 +65,7 @@
                            pagesize="${bedehiTasviyeNashodePaginatedList.objectsPerPage}"
                            requestURI="?selectedTab=tabs-5&${pagingParams}" clearStatus="true" keepStatus="false"
                            excludedParams="selectedTab decorator pishnehadSearch* _chk" style="width: 100%; margin: 0 auto;">
-                <display:setProperty name="pagination.pagenumber.param"><%=ConstantPaging.bedehiTasviyeNashodeResultPageNumber%></display:setProperty>
+                <display:setProperty name="pagination.pagenumber.param"><%=ConstantPaging.MotalebatNamayandePageNumber%></display:setProperty>
                 <c:set var="todayDate"  value="<%=DateUtil.getCurrentDate()%>"></c:set>
                 <c:set var="towDaysLaterDate"  value="<%=DateUtil.addDays(DateUtil.getCurrentDate(),2)%>"></c:set>
 
@@ -106,7 +106,7 @@
                 <%--<display:column property="paidReceivedAmountFormat" title="مبلغ دريافت شده" style=""/>--%>
                 <display:column title="مبلغ سند نخورده" style="${css}" property="sanadNakhorde" />
                 <display:column title="مبلغ تسويه نشده" style="${css}" property="tasvieNashode" />
-                <%--<display:column title= "نوع"  style="${css}" property="CreType" />--%>
+                <display:column title= "نوع"  style="${css}" property="creType" />
                 <display:column title="كد بازارياب" style="${css}" property="bazaryab_sanam_id" />
                 <display:column title="مهلت سررسيد" style="${css}" property="mohlatsarresid" />
 

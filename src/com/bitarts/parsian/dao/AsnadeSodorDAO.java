@@ -19,15 +19,12 @@ import com.bitarts.parsian.model.pishnahad.Shakhs;
 import com.bitarts.parsian.viewModel.*;
 import com.bitarts.parsian.viewModel.search.CredebitSearchForm;
 import com.opensymphony.xwork2.ActionContext;
-import com.sun.xml.xsom.impl.ListSimpleTypeImpl;
 import oracle.jdbc.OracleTypes;
-import org.apache.commons.collections.list.LazyList;
 import org.hibernate.*;
 import org.hibernate.criterion.*;
 import org.hibernate.engine.LoadQueryInfluencers;
 import org.hibernate.engine.SessionFactoryImplementor;
 import org.hibernate.engine.SessionImplementor;
-import org.hibernate.hql.ast.ASTQueryTranslatorFactory;
 import org.hibernate.impl.CriteriaImpl;
 import org.hibernate.impl.SessionImpl;
 import org.hibernate.loader.OuterJoinLoader;
@@ -249,7 +246,7 @@ public class AsnadeSodorDAO extends BaseDAO {
                 "    left join (SELECT * FROM tbl_daryafte_check ) dcheck ON dcheck.ID = cre.DARYAFTE_CHECK_ID " +
                 "    left join (SELECT * FROM tbl_daryafte_fish  ) dfish  ON dfish.ID = cre.DARYAFTE_FISH_ID " +
                 "  )  etebar  ON kh.etebar_credebit_id = etebar.id " +
-                " INNER JOIN " +
+                " LEFT JOIN " +
                 "  (SELECT * FROM tbl_namayande ) nm ON nm.id = sanad.namayande_id " +
                 " INNER JOIN " +
                 "  (select * from tbl_dictionary where PID = 1010)  dfnVaziat on dfnVaziat.Value = sanad.vaziat " +
@@ -4587,7 +4584,7 @@ public class AsnadeSodorDAO extends BaseDAO {
                              " nvl(cre.mohlat_sarresid, 0) as mohlatsarresid" +
                              " from (select * from tbl_credebit where mablaghtasvienashode > 0)cre inner join " +
                              " (select * from tbl_credebittype where bedorbes = 1 )cretype on cre.credebit_type = cretype.latinname" +
-                             " inner join tbl_namayande namayande on cre.أnamayande_id = namayande.id" +
+                             " inner join tbl_namayande namayande on cre.namayande_id = namayande.id" +
                              " inner join tbl_namayande vsodoor on cre.vahedesodor_id = vsodoor.id" +
                              " where (1=1)  ";
         if(user.getNamayandegi()!=null){
@@ -4773,7 +4770,7 @@ public class AsnadeSodorDAO extends BaseDAO {
         return namayandeIdListLong;
     }
 
-    public PaginatedListImpl<Motalebat> FindMotalebatNamayande(int page , User user , int Field){
+    public PaginatedListImpl<Motalebat> FindMotalebatNamayande(int page , User user , int Field , Long namayandegi , boolean isSearch){
         PaginatedListImpl<Motalebat> resultList    =   new PaginatedListImpl<Motalebat>();
         resultList.setPageNumber(page); //(page)
         resultList.setObjectsPerPage(PagingUtil.MAX_OBJECTS_PER_PAGE);
@@ -4833,6 +4830,14 @@ public class AsnadeSodorDAO extends BaseDAO {
         if ( Field > 0   ) {
             Query += " AND  field = "+ Field;
         }
+        if(namayandegi!= null){
+            //query += "AND namayande.kodenamayandekargozar = " + user.getNamayandegi().getKodeNamayandeKargozar();
+            String sql = "SELECT kodenamayandekargozar FROM tbl_namayande  START WITH id = " + user.getNamayandegi().getId() + " CONNECT BY NOCYCLE PRIOR id = sarparast_id ";
+            Query += " AND namayande.kodenamayandekargozar in ("+ sql + ")";
+        }
+        if(!isSearch){
+            Query += " AND (1=2)";
+        }
 
         Query += "   group by    " +
                 "   T2.namayande, T2.Name, T2.field , dict.fieldStr " +
@@ -4878,7 +4883,7 @@ public class AsnadeSodorDAO extends BaseDAO {
         return resultList;
     }
 
-    public PaginatedListImpl<Motalebat> FindMotalebatSal(int page , User user , int Field){
+    public PaginatedListImpl<Motalebat> FindMotalebatSal(int page , User user , int Field , Long namayandegi , boolean isSearch){
         PaginatedListImpl<Motalebat> resultList    =   new PaginatedListImpl<Motalebat>();
         resultList.setPageNumber(page); //(page)
         resultList.setObjectsPerPage(PagingUtil.MAX_OBJECTS_PER_PAGE);
@@ -4887,7 +4892,7 @@ public class AsnadeSodorDAO extends BaseDAO {
                 "  createDate, field , fieldStr " +
                 "   , sum(mablagh) as SaderShode , sum(sarresid_nashode2) as SarresidNashode, sum(Consortiumsarresid_nashode2) as Consortiumsarresid_nashode , sum(tasvieNashodeNahaii2) as TasvieNashode, sum(consortium) as consortiumNahaii ,  " +
                 "   sum(tasvieshodeNahaii2) as TasvieShode from( " +
-                "   select namayande, Name, field, mablagh, " +
+                "   select createDate, field, mablagh, " +
                 "   case when isConsortium = 1 then 0 else sarresid_nashode end as sarresid_nashode2,   " +
                 "   case when isConsortium = 1 then sarresid_nashode else 0 end as Consortiumsarresid_nashode2 , " +
                 "   case when isConsortium = 1 then 0 else tasvie_nashode end as tasvieNashodeNahaii2,  " +
@@ -4935,6 +4940,14 @@ public class AsnadeSodorDAO extends BaseDAO {
 //        Query += " AND bedehi.daftar_id = " + daftar_id;
         if ( Field > 0   ) {
             Query += " AND  field = "+ Field;
+        }
+        if(namayandegi != null){
+            //query += "AND namayande.kodenamayandekargozar = " + user.getNamayandegi().getKodeNamayandeKargozar();
+            String sql = "SELECT kodenamayandekargozar FROM tbl_namayande  START WITH id = " + user.getNamayandegi().getId() + " CONNECT BY NOCYCLE PRIOR id = sarparast_id ";
+            Query += " AND namayande.kodenamayandekargozar in ("+ sql + ")";
+        }
+        if(!isSearch){
+            Query += " AND (1=2)";
         }
 
         Query += "   group by    " +

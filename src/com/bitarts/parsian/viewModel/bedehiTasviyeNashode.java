@@ -27,7 +27,7 @@ public class bedehiTasviyeNashode
     private String vsodoorName="";
     private Long   mablaghKol=new Long(0);
     private String created_date="";
-    private String CreType="";
+    private String creType="";
     private Long   tasvieNashode=new Long(0);
     private Long   sanadNakhorde=new Long(0);
     private Long   bazaryab_sanam_id=new Long(0);
@@ -54,7 +54,7 @@ public class bedehiTasviyeNashode
             this.mablaghKol     = mablaghKol;
             this.sanadNakhorde  = sanadNakhorde;
             this.tasvieNashode  = tasvieNashode;
-            this.CreType        = CreType;
+            this.creType        = CreType;
             this.bazaryab_sanam_id = bazaryab_sanam_id;
             this.sarresid_date  = sarresid;
             this.mohlatsarresid = mohlatsarresid;
@@ -133,7 +133,7 @@ public class bedehiTasviyeNashode
         this.tasvieNashode = tasvieNashode;
     }
     public void setCreType(String creType){
-        this.CreType = creType;
+        this.creType = creType;
     }
     public Long getBazaryab_sanam_id(){
         return this.bazaryab_sanam_id ;
@@ -142,7 +142,7 @@ public class bedehiTasviyeNashode
         this.bazaryab_sanam_id = bazaryab_sanam_id;
     }
     public String getCreType(){
-        return this.CreType;
+        return this.creType;
     }
 
     public void setMohlatsarresid(int mohlatsarresid){

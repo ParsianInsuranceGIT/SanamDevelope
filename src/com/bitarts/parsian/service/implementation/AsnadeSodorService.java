@@ -31,7 +31,6 @@ import com.bitarts.parsian.util.DPUtil;
 import com.bitarts.parsian.util.OmrUtil;
 import com.bitarts.parsian.viewModel.*;
 import com.bitarts.parsian.viewModel.search.CredebitSearchForm;
-import com.opensymphony.xwork2.ActionContext;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
@@ -3146,10 +3145,10 @@ public class AsnadeSodorService implements IAsnadeSodorService
         return asnadeSodorDAO.findbedehiNamayandeForGozaresh(namayandeId,user);
     }
 
-    public PaginatedListImpl<Motalebat> listMotalebatNamayande (int page , User usr , int field){
-        return asnadeSodorDAO.FindMotalebatNamayande(page,usr,field);
+    public PaginatedListImpl<Motalebat> listMotalebatNamayande (int page , User usr , int field,Long namayandeId , boolean searchPage){
+        return asnadeSodorDAO.FindMotalebatNamayande(page,usr,field , namayandeId , searchPage);
     }
-    public PaginatedListImpl<Motalebat> listMotalebatSal (int page , User usr , int field){
-        return asnadeSodorDAO.FindMotalebatSal(page,usr,field);
+    public PaginatedListImpl<Motalebat> listMotalebatSal (int page , User usr , int field, Long namayandeId , boolean searchPage){
+        return asnadeSodorDAO.FindMotalebatSal(page,usr,field, namayandeId , searchPage);
     }
 }
